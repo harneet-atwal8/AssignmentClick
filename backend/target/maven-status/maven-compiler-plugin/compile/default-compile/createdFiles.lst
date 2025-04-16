@@ -1,0 +1,7 @@
+com\ingestion\IngestionApplication.class
+com\ingestion\model\JoinCondition.class
+com\ingestion\model\IngestionRequest.class
+com\ingestion\controller\IngestionController.class
+com\ingestion\IngestionApplication$1.class
+com\ingestion\service\FlatFileService.class
+com\ingestion\service\ClickHouseService.class

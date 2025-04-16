@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Data Ingestion Tool</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="./download.png">
+</head>
+<body>
+    <h1>Data Ingestion Tool</h1>
+    <div class="container">
+        <div class="section">
+            <h2>Source Selection</h2>
+            <label>Source:</label>
+            <select id="source" onchange="updateUI()">
+                <option value="clickhouse">ClickHouse</option>
+                <option value="flatfile">Flat File</option>
+            </select>
+            <div id="clickhouse-config">
+                <h3>ClickHouse Connection</h3>
+                <label>Host:</label><input type="text" id="ch-host" value="localhost"><br>
+                <label>Port:</label><input type="text" id="ch-port" value="8123"><br>
+                <label>Database:</label><input type="text" id="ch-database" value="default"><br>
+                <label>User:</label><input type="text" id="ch-user" value="default"><br>
+                <label>JWT Token:</label><input type="text" id="ch-jwt" placeholder="Optional"><br>
+                <button onclick="connect()">Connect</button>
+            </div>
+            <div id="flatfile-config" style="display:none;">
+                <h3>Flat File Source</h3>
+                <label>CSV File:</label><input type="file" id="file-upload" accept=".csv"><br>
+                <label>Delimiter:</label><input type="text" id="delimiter" value=","><br>
+            </div>
+        </div>
+        <div class="section">
+            <h2>Data Selection</h2>
+            <label>Table/File:</label>
+            <select id="table-name"></select>
+            <button onclick="fetchTables()">Load Tables</button><br>
+            <div id="join-config" style="display:none;">
+                <h3>Join Configuration</h3>
+                <div id="join-conditions"></div>
+                <button onclick="addJoinCondition()">Add Join Condition</button>
+            </div>
+        </div>
+        <div class="section">
+            <h2>Columns</h2>
+            <button onclick="fetchColumns()">Load Columns</button>
+            <div id="columns-list"></div>
+        </div>
+        <div class="section">
+            <h2>Target</h2>
+            <label>Output Path/Table:</label>
+            <input type="text" id="output-path" placeholder="e.g., output.csv or table_name">
+        </div>
+        <div class="section">
+            <h2>Actions</h2>
+            <button onclick="previewData()">Preview Data</button>
+            <button onclick="startIngestion()">Start Ingestion</button>
+            <div id="progress-bar">
+                <div id="progress"></div>
+            </div>
+        </div>
+        <div class="section">
+            <h2>Status</h2>
+            <div id="status">Ready</div>
+        </div>
+        <div class="section">
+            <h2>Result</h2>
+            <div id="result"></div>
+        </div>
+        <div class="section" id="preview-section" style="display:none;">
+            <h2>Data Preview</h2>
+            <table id="preview-table">
+                <thead id="preview-headers"></thead>
+                <tbody id="preview-body"></tbody>
+            </table>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
